@@ -5,7 +5,8 @@ var Movie = Backbone.Model.extend({
   },
 
   toggleLike: function() {
-    // your code here
+    // negate whatever is the current value of this.like
+    this.set('like', !this.get('like'));
   }
 
 });
@@ -14,14 +15,18 @@ var Movies = Backbone.Collection.extend({
 
   model: Movie,
 
-  initialize: function() {
-    // your code here
+  initialize: function(data) {
+    this.on('change', this.sort, this);
   },
 
   comparator: 'title',
 
   sortByField: function(field) {
-    // your code here
+    // comparator is a direct property of a collection
+    // .get() and .set() are used with properties of the
+    // .attributes object.
+    this.comparator = field;
+    this.sort();
   }
 
 });
