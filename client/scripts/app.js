@@ -63,7 +63,8 @@ var MovieView = Backbone.View.extend({
                         </div>'),
 
   initialize: function() {
-    // your code here
+    // The model here refers to the Movie the View is based on
+    this.model.on('change', this.render, this);
   },
 
   events: {
@@ -71,7 +72,8 @@ var MovieView = Backbone.View.extend({
   },
 
   handleClick: function() {
-    // your code here
+    // Call toggleLike on this View's model, e.g. its movie
+    this.model.toggleLike();
   },
 
   render: function() {
@@ -84,7 +86,8 @@ var MovieView = Backbone.View.extend({
 var MoviesView = Backbone.View.extend({
 
   initialize: function() {
-    // your code here
+    // Need to bind this to this context
+    this.collection.on('sort', this.render, this);
   },
 
   render: function() {
